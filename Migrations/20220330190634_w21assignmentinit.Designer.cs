@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace W21_Assignment.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20220330173000_w21assignmentinit")]
+    [Migration("20220330190634_w21assignmentinit")]
     partial class w21assignmentinit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,6 +62,9 @@ namespace W21_Assignment.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Province")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Status")
                         .HasColumnType("longtext");
 
                     b.Property<string>("StreetName")
