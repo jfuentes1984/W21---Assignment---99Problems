@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using W21_Assignment.Model;
 
-namespace W21_Assignment.Pages.Product
+namespace W21_Assignment.Pages.Products
 {
     public class CreateModel : PageModel
     {

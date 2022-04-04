@@ -8,18 +8,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using W21_Assignment.Model;
 
-namespace W21_Assignment.Pages.Product
+namespace W21_Assignment.Pages.Products
 {
-    public class DeleteModel : PageModel
+    public class DetailsModel : PageModel
     {
         private readonly DBContext _context;
 
-        public DeleteModel(DBContext context)
+        public DetailsModel(DBContext context)
         {
             _context = context;
         }
 
-        [BindProperty]
         public W21_Assignment.Model.Product Product { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -36,24 +35,6 @@ namespace W21_Assignment.Pages.Product
                 return NotFound();
             }
             return Page();
-        }
-
-        public async Task<IActionResult> OnPostAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Product = await _context.Product.FindAsync(id);
-
-            if (Product != null)
-            {
-                _context.Product.Remove(Product);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
         }
     }
 }

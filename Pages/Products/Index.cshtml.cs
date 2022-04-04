@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using W21_Assignment.Model;
 
-namespace W21_Assignment.Pages.Product
+namespace W21_Assignment.Pages.Products
 {
     public class IndexModel : PageModel
     {
@@ -23,7 +23,7 @@ namespace W21_Assignment.Pages.Product
 
         public async Task OnGetAsync()
         {
-            Product = await _context.Product.ToListAsync();
+            Product = await _context.Products.ToListAsync();
         }
     }
 }

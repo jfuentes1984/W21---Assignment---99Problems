@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using W21_Assignment.Model;
 
-namespace W21_Assignment.Pages.Product
+namespace W21_Assignment.Pages.Products
 {
     public class EditModel : PageModel
     {

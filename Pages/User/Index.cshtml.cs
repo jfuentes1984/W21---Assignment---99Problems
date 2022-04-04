@@ -15,7 +15,7 @@ public class IndexModel : PageModel
     private readonly ILogger<IndexModel> _logger;
     private readonly DBContext _context;
     [BindProperty]
-    public User? UserInfo { get; set; }
+    public User UserInfo { get; set; }
 
     public IndexModel(ILogger<IndexModel> logger, DBContext context)
     {
@@ -26,7 +26,7 @@ public class IndexModel : PageModel
     // public new IList<W21_Assignment.Model.User> User { get; set; }
 
 
-    public string? UserEmail { get; set; }
+    public string UserEmail { get; set; }
     public async Task<IActionResult> OnGetAsync()
     {
         UserInfo = await _context.User.FirstOrDefaultAsync();

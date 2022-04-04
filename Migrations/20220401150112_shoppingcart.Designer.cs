@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace W21_Assignment.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20220330193644_identity")]
-    partial class identity
+    [Migration("20220401150112_shoppingcart")]
+    partial class shoppingcart
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -216,24 +216,107 @@ namespace W21_Assignment.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("W21_Assignment.Model.Cart", b =>
+                {
+                    b.Property<uint>("CartId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int unsigned");
+
+                    b.Property<uint?>("CustomerId")
+                        .HasColumnType("int unsigned");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<uint>("Quantity")
+                        .HasColumnType("int unsigned");
+
+                    b.HasKey("CartId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Cart");
+                });
+
+            modelBuilder.Entity("W21_Assignment.Model.Customer", b =>
+                {
+                    b.Property<uint>("CustomerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int unsigned");
+
+                    b.Property<string>("City")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Province")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("StreetName")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("StreetNumber")
+                        .HasColumnType("int");
+
+                    b.HasKey("CustomerId");
+
+                    b.ToTable("Customers");
+                });
+
             modelBuilder.Entity("W21_Assignment.Model.Product", b =>
                 {
                     b.Property<int>("ProductId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Description")
                         .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("Decimal(7,2)");
 
-                    b.Property<uint>("Stock")
-                        .HasColumnType("int unsigned");
-
                     b.HasKey("ProductId");
 
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("W21_Assignment.Model.Stock", b =>
+                {
+                    b.Property<uint>("StockId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int unsigned");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<uint>("Quantity")
+                        .HasColumnType("int unsigned");
+
+                    b.HasKey("StockId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Stock");
                 });
 
             modelBuilder.Entity("W21_Assignment.Model.User", b =>
@@ -249,7 +332,8 @@ namespace W21_Assignment.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Name")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("Phone")
                         .HasColumnType("longtext");
@@ -323,6 +407,35 @@ namespace W21_Assignment.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("W21_Assignment.Model.Cart", b =>
+                {
+                    b.HasOne("W21_Assignment.Model.Customer", "Customer")
+                        .WithMany("CartItems")
+                        .HasForeignKey("CustomerId");
+
+                    b.HasOne("W21_Assignment.Model.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("W21_Assignment.Model.Stock", b =>
+                {
+                    b.HasOne("W21_Assignment.Model.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("W21_Assignment.Model.Customer", b =>
+                {
+                    b.Navigation("CartItems");
                 });
 #pragma warning restore 612, 618
         }

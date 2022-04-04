@@ -3,11 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace W21_Assignment.Model;
 
-public class User
+public class Customer
 {
-    public int UserId { get; set; }
-    [MaxLength(128)]
-    public string? Name { get; set; }
+    public uint CustomerId { get; set; }
+    public string Name { get; set; } = "Customer Name";
     [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Your Email is not valid.")]
     public string? Email { get; set; }
     public string? Status { get; set; }
@@ -21,5 +20,7 @@ public class User
 
     public string? Province { get; set; }
     public string? Phone { get; set; }
+
+    public virtual IList<Cart>? CartItems { get; set; }
 
 }
