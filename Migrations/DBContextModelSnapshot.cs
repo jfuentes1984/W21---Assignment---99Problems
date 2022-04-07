@@ -79,6 +79,10 @@ namespace W21_Assignment.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)");
@@ -129,6 +133,8 @@ namespace W21_Assignment.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -317,16 +323,11 @@ namespace W21_Assignment.Migrations
                     b.ToTable("Stock");
                 });
 
-            modelBuilder.Entity("W21_Assignment.Model.User", b =>
+            modelBuilder.Entity("W21_Assignment.Model.SiteUser", b =>
                 {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.Property<string>("City")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Email")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Name")
@@ -351,9 +352,7 @@ namespace W21_Assignment.Migrations
                     b.Property<int?>("StreetNumber")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId");
-
-                    b.ToTable("User");
+                    b.HasDiscriminator().HasValue("SiteUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

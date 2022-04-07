@@ -15,7 +15,7 @@ public class DBContext : IdentityDbContext
     }
 
     public DbSet<Product> Product { get; set; }
-    public DbSet<User> User { get; set; }
+    public DbSet<SiteUser> SiteUser { get; set; }
     public DbSet<Cart> Cart { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Product> Products { get; set; }
