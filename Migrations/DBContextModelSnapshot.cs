@@ -79,10 +79,6 @@ namespace W21_Assignment.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)");
@@ -133,8 +129,6 @@ namespace W21_Assignment.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -163,12 +157,10 @@ namespace W21_Assignment.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("longtext");
@@ -205,12 +197,10 @@ namespace W21_Assignment.Migrations
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Value")
                         .HasColumnType("longtext");
@@ -220,72 +210,9 @@ namespace W21_Assignment.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("W21_Assignment.Model.Cart", b =>
+            modelBuilder.Entity("W21_Assignment.Models.Coffee", b =>
                 {
-                    b.Property<uint>("CartId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int unsigned");
-
-                    b.Property<uint?>("CustomerId")
-                        .HasColumnType("int unsigned");
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<uint>("Quantity")
-                        .HasColumnType("int unsigned");
-
-                    b.HasKey("CartId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Cart");
-                });
-
-            modelBuilder.Entity("W21_Assignment.Model.Customer", b =>
-                {
-                    b.Property<uint>("CustomerId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int unsigned");
-
-                    b.Property<string>("City")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("PostalCode")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Province")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("StreetName")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("StreetNumber")
-                        .HasColumnType("int");
-
-                    b.HasKey("CustomerId");
-
-                    b.ToTable("Customers");
-                });
-
-            modelBuilder.Entity("W21_Assignment.Model.Product", b =>
-                {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("CoffeeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -293,66 +220,76 @@ namespace W21_Assignment.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("longtext");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("Decimal(7,2)");
+                    b.Property<string>("Picture")
+                        .HasColumnType("longtext");
 
-                    b.HasKey("ProductId");
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("decimal(7,2)");
 
-                    b.ToTable("Product");
+                    b.HasKey("CoffeeId");
+
+                    b.ToTable("Coffee");
                 });
 
-            modelBuilder.Entity("W21_Assignment.Model.Stock", b =>
+            modelBuilder.Entity("W21_Assignment.Models.Menu", b =>
                 {
-                    b.Property<uint>("StockId")
+                    b.Property<int>("MenuId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int unsigned");
-
-                    b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<uint>("Quantity")
-                        .HasColumnType("int unsigned");
+                    b.Property<int>("Day")
+                        .HasColumnType("int");
 
-                    b.HasKey("StockId");
+                    b.Property<string>("Entree")
+                        .HasColumnType("longtext");
 
-                    b.HasIndex("ProductId");
+                    b.Property<string>("Main")
+                        .HasColumnType("longtext");
 
-                    b.ToTable("Stock");
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("decimal(7,2)");
+
+                    b.HasKey("MenuId");
+
+                    b.ToTable("Menu");
                 });
 
-            modelBuilder.Entity("W21_Assignment.Model.SiteUser", b =>
+            modelBuilder.Entity("W21_Assignment.Models.User", b =>
                 {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Email")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Phone")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("PostalCode")
+                    b.Property<string>("Postalcode")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Province")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("StreetName")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("StreetNumber")
+                    b.Property<int>("StreetNumber")
                         .HasColumnType("int");
 
-                    b.HasDiscriminator().HasValue("SiteUser");
+                    b.HasKey("UserId");
+
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -404,35 +341,6 @@ namespace W21_Assignment.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("W21_Assignment.Model.Cart", b =>
-                {
-                    b.HasOne("W21_Assignment.Model.Customer", "Customer")
-                        .WithMany("CartItems")
-                        .HasForeignKey("CustomerId");
-
-                    b.HasOne("W21_Assignment.Model.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("W21_Assignment.Model.Stock", b =>
-                {
-                    b.HasOne("W21_Assignment.Model.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("W21_Assignment.Model.Customer", b =>
-                {
-                    b.Navigation("CartItems");
                 });
 #pragma warning restore 612, 618
         }

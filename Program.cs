@@ -1,8 +1,6 @@
-global using W21_Assignment.Model;
-
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,12 +8,13 @@ builder.Services.AddRazorPages();
 
 var connectionString = builder.Configuration.GetConnectionString("DBContext");
 var serverVersion = new MariaDbServerVersion(builder.Configuration.GetValue<string>("DBMSVersion"));
-
 builder.Services.AddDbContext<DBContext>(options =>
-     options.UseLazyLoadingProxies().UseMySql(connectionString, serverVersion));
+    options.UseLazyLoadingProxies().UseMySql(connectionString, serverVersion));
 
-builder.Services.AddDefaultIdentity<SiteUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+options.SignIn.RequireConfirmedAccount = true)
 .AddEntityFrameworkStores<DBContext>();
+
 
 var app = builder.Build();
 

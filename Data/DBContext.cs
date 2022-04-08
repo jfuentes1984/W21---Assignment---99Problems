@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using W21_Assignment.Model;
+using W21_Assignment.Models;
 
 public class DBContext : IdentityDbContext
 {
@@ -14,10 +14,9 @@ public class DBContext : IdentityDbContext
     {
     }
 
-    public DbSet<Product> Product { get; set; }
-    public DbSet<SiteUser> SiteUser { get; set; }
-    public DbSet<Cart> Cart { get; set; }
-    public DbSet<Customer> Customers { get; set; }
-    public DbSet<Product> Products { get; set; }
-    public DbSet<Stock> Stock { get; set; }
+    public DbSet<W21_Assignment.Models.Menu> Menu { get; set; }
+
+    public DbSet<W21_Assignment.Models.Coffee> Coffee { get; set; }
+
+    public DbSet<W21_Assignment.Models.User> User { get; set; }
 }
