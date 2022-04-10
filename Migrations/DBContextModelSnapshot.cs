@@ -79,6 +79,10 @@ namespace W21_Assignment.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)");
@@ -129,6 +133,8 @@ namespace W21_Assignment.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -157,10 +163,12 @@ namespace W21_Assignment.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("varchar(255)");
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("varchar(255)");
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("longtext");
@@ -197,10 +205,12 @@ namespace W21_Assignment.Migrations
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("varchar(255)");
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(255)");
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("longtext");
@@ -256,17 +266,11 @@ namespace W21_Assignment.Migrations
                     b.ToTable("Menu");
                 });
 
-            modelBuilder.Entity("W21_Assignment.Models.User", b =>
+            modelBuilder.Entity("W21_Assignment.Models.SiteUser", b =>
                 {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Email")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Name")
@@ -275,7 +279,7 @@ namespace W21_Assignment.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Postalcode")
+                    b.Property<string>("PostalCode")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Province")
@@ -287,9 +291,10 @@ namespace W21_Assignment.Migrations
                     b.Property<int>("StreetNumber")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId");
+                    b.Property<int>("UserType")
+                        .HasColumnType("int");
 
-                    b.ToTable("User");
+                    b.HasDiscriminator().HasValue("SiteUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
