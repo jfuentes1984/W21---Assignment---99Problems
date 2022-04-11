@@ -8,8 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 var connectionString = builder.Configuration.GetConnectionString("DBContext");
-builder.Services.AddDbContext<DBContext>(options =>
-    options.UseSqlServer(connectionString));var serverVersion = new MariaDbServerVersion(builder.Configuration.GetValue<string>("DBMSVersion"));
+var serverVersion = new MariaDbServerVersion(builder.Configuration.GetValue<string>("DBMSVersion"));
 builder.Services.AddDbContext<DBContext>(options =>
     options.UseLazyLoadingProxies().UseMySql(connectionString, serverVersion));
 
