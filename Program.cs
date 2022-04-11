@@ -1,5 +1,4 @@
 global using W21_Assignment.Model;
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

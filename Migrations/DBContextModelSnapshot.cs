@@ -244,6 +244,29 @@ namespace W21_Assignment.Migrations
                     b.ToTable("Cart");
                 });
 
+            modelBuilder.Entity("W21_Assignment.Model.Coffee", b =>
+                {
+                    b.Property<int>("CoffeeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Picture")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("decimal(7,2)");
+
+                    b.HasKey("CoffeeId");
+
+                    b.ToTable("Coffee");
+                });
+
             modelBuilder.Entity("W21_Assignment.Model.Customer", b =>
                 {
                     b.Property<uint>("CustomerId")
@@ -281,6 +304,29 @@ namespace W21_Assignment.Migrations
                     b.HasKey("CustomerId");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("W21_Assignment.Model.Menu", b =>
+                {
+                    b.Property<int>("MenuId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Day")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Entree")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Main")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("decimal(7,2)");
+
+                    b.HasKey("MenuId");
+
+                    b.ToTable("Menu");
                 });
 
             modelBuilder.Entity("W21_Assignment.Model.Product", b =>
@@ -349,7 +395,7 @@ namespace W21_Assignment.Migrations
                     b.Property<string>("StreetName")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("StreetNumber")
+                    b.Property<int>("StreetNumber")
                         .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("SiteUser");
