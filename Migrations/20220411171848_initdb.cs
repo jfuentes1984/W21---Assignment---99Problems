@@ -42,7 +42,8 @@ namespace W21_Assignment.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Name = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Status = table.Column<string>(type: "longtext", nullable: true)
+                    IsQualified = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                    UserType = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     StreetNumber = table.Column<int>(type: "int", nullable: true),
                     StreetName = table.Column<string>(type: "longtext", nullable: true)
@@ -306,11 +307,18 @@ namespace W21_Assignment.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ProductId = table.Column<int>(type: "int", nullable: true),
                     CustomerId = table.Column<uint>(type: "int unsigned", nullable: true),
-                    Quantity = table.Column<uint>(type: "int unsigned", nullable: false)
+                    Quantity = table.Column<uint>(type: "int unsigned", nullable: false),
+                    SiteUserId = table.Column<string>(type: "varchar(255)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cart", x => x.CartId);
+                    table.ForeignKey(
+                        name: "FK_Cart_AspNetUsers_SiteUserId",
+                        column: x => x.SiteUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Cart_Customers_CustomerId",
                         column: x => x.CustomerId,
@@ -390,6 +398,11 @@ namespace W21_Assignment.Migrations
                 name: "IX_Cart_ProductId",
                 table: "Cart",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cart_SiteUserId",
+                table: "Cart",
+                column: "SiteUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Stock_ProductId",

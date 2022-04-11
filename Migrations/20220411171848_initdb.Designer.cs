@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace W21_Assignment.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20220410234329_initdb")]
+    [Migration("20220411171848_initdb")]
     partial class initdb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -237,11 +237,16 @@ namespace W21_Assignment.Migrations
                     b.Property<uint>("Quantity")
                         .HasColumnType("int unsigned");
 
+                    b.Property<string>("SiteUserId")
+                        .HasColumnType("varchar(255)");
+
                     b.HasKey("CartId");
 
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("SiteUserId");
 
                     b.ToTable("Cart");
                 });
@@ -378,6 +383,9 @@ namespace W21_Assignment.Migrations
                     b.Property<string>("City")
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("IsQualified")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Name")
                         .HasMaxLength(128)
                         .HasColumnType("varchar(128)");
@@ -391,14 +399,14 @@ namespace W21_Assignment.Migrations
                     b.Property<string>("Province")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("StreetName")
                         .HasColumnType("longtext");
 
                     b.Property<int>("StreetNumber")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserType")
+                        .HasColumnType("longtext");
 
                     b.HasDiscriminator().HasValue("SiteUser");
                 });
@@ -464,6 +472,10 @@ namespace W21_Assignment.Migrations
                         .WithMany()
                         .HasForeignKey("ProductId");
 
+                    b.HasOne("W21_Assignment.Model.SiteUser", null)
+                        .WithMany("CartItems")
+                        .HasForeignKey("SiteUserId");
+
                     b.Navigation("Customer");
 
                     b.Navigation("Product");
@@ -479,6 +491,11 @@ namespace W21_Assignment.Migrations
                 });
 
             modelBuilder.Entity("W21_Assignment.Model.Customer", b =>
+                {
+                    b.Navigation("CartItems");
+                });
+
+            modelBuilder.Entity("W21_Assignment.Model.SiteUser", b =>
                 {
                     b.Navigation("CartItems");
                 });

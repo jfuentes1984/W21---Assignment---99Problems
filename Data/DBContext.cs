@@ -20,7 +20,6 @@ public class DBContext : IdentityDbContext
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Stock> Stock { get; set; }
-
     public DbSet<Menu> Menu { get; set; }
 
     public DbSet<Coffee> Coffee { get; set; }

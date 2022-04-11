@@ -21,6 +21,8 @@ namespace W21_Assignment.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<SiteUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        [BindProperty]
+        public SiteUser UserData { get; set; }
 
         public LoginModel(SignInManager<SiteUser> signInManager, ILogger<LoginModel> logger)
         {

@@ -30,6 +30,9 @@ namespace W21_Assignment.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
+        [BindProperty]
+        public SiteUser UserData { get; set; }
+
         public RegisterModel(
             UserManager<SiteUser> userManager,
             IUserStore<SiteUser> userStore,

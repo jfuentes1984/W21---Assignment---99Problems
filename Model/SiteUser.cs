@@ -8,9 +8,13 @@ public class SiteUser : IdentityUser
 {
     [PersonalData]
     [MaxLength(128)]
-    public string? Name { get; set; }
+    public string? Name { get; set; } = "Full Name";
     [PersonalData]
-    public string? Status { get; set; }
+    // boolean for a checkbox 
+    public bool IsQualified { get; set; }
+    // for radio buttons employee or Customer
+    [PersonalData]
+    public string? UserType { get; set; }
     [PersonalData]
     [Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
     public int StreetNumber { get; set; } = 1;
@@ -25,5 +29,7 @@ public class SiteUser : IdentityUser
     public string? Province { get; set; }
     [PersonalData]
     public string? Phone { get; set; }
+
+    public virtual IList<Cart>? CartItems { get; set; }
 
 }
