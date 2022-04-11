@@ -141,3 +141,7 @@ p {
     font-size: 20px;
     color: white;
 }
+
+.p-contact-index {
+    background-color: rgba(0, 0, 0, .5);
+}
