@@ -94,7 +94,8 @@ namespace W21_Assignment.Areas.Identity.Pages.Account.Manage
                 StreetName = user.StreetName,
                 PostalCode = user.PostalCode,
                 City = user.City,
-                Province = user.Province
+                Province = user.Province,
+                UserType = user.UserType
             };
         }
 
